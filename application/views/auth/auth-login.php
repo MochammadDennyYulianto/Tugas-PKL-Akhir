@@ -84,12 +84,9 @@
                 autofocus
               />
             </div>
-            <div class="mb-3 form-password-toggle">
+            <div class="mb-4 form-password-toggle">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Password</label>
-                <a href="auth-forgot-password-basic.html">
-                  <small>Forgot Password?</small>
-                </a>
               </div>
               <div class="input-group input-group-merge">
                 <input
@@ -97,23 +94,29 @@
                   id="password"
                   class="form-control"
                   name="password"
-                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                  placeholder="Enter your password here"
                   aria-describedby="password"
                 />
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
               </div>
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+              <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
             </div>
+            <div class="d-flex justify-content-between">
+              <p class="text-center">
+                <a href="<?= base_url('auth/forgotpassword'); ?>">
+                  <span>Forgot password?</span>
+                </a>
+              </p>
+              <p class="text-center">
+                <a href="<?= base_url('auth/registration'); ?>">
+                  <span>Create an account</span>
+                </a>
+              </p>
+              </div>
           </form>
-
-          <p class="text-center">
-            <span>New on our platform?</span>
-            <a href="<?= base_url('auth/registration'); ?>">
-              <span>Create an account</span>
-            </a>
-          </p>
+          
         </div>
       </div>
       <!-- /Register -->

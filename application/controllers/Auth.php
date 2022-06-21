@@ -21,6 +21,9 @@ class Auth extends CI_Controller
         $this->load->view('templates/auth-header.php');
 		$this->load->view('auth/auth-login', $data);
         $this->load->view('templates/auth-footer.php');
+
+        // $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        // $this->form_validation->set_rules('password', 'Password', 'required');
 	}
 
     public function registration()

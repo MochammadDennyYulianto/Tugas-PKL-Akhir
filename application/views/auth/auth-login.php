@@ -54,7 +54,7 @@
   <body>
     <!-- Content -->
 
-    <div class="container-xxl">
+    <div class="container-xxl bg-dark">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register -->
@@ -122,8 +122,8 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to DenZal-! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <h4 class="mb-4 text-center">Welcome to DenZal</h4>
+              <p class="mb-2">Please enter your email and password</p>
               <?= $this->session->flashdata('message');?>
 
               <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
@@ -134,7 +134,7 @@
                     class="form-control"
                     id="email"
                     name="email"
-                    placeholder="Enter your email in here"
+                    placeholder="Enter your email in here..."
                     autofocus
                   />
                 </div>
@@ -151,7 +151,7 @@
                       id="password"
                       class="form-control"
                       name="password"
-                      placeholder="Enter your password in here"
+                      placeholder="Enter your password in here..."
                       aria-describedby="password"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>

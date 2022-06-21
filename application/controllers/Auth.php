@@ -16,7 +16,11 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		$this->load->view('auth/auth-login');
+        $data['title'] = 'DenZal | Login Page';
+
+        $this->load->view('templates/auth-header.php');
+		$this->load->view('auth/auth-login', $data);
+        $this->load->view('templates/auth-footer.php');
 
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
@@ -56,7 +60,11 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run() == $NOT_RUN)
         {
+            $data['title'] = 'DenZal | Registrasion Page';
+            
+            $this->load->view('templates/auth-header.php', $data);
             $this->load->view('auth/auth-register.php');
+            $this->load->view('templates/auth-footer.php');
         }
         else
         {

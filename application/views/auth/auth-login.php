@@ -122,8 +122,9 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-5 text-center" >Welcome to this web</h4>
-              <p class="mb-3">Enter your email and password to login</p>
+              <h4 class="mb-2">Welcome to DenZal-! 👋</h4>
+              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <?= $this->session->flashdata('message');?>
 
               <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
                 <div class="mb-4  ">

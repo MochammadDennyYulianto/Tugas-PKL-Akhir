@@ -125,7 +125,7 @@
               <h4 class="mb-2">Whealty starts here 🚀</h4>
               <p class="mb-4">Make your own digital store manageable</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="<?= base_url('auth/registration')?>" method="post">
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
                   <input
@@ -133,13 +133,23 @@
                     class="form-control"
                     id="username"
                     name="username"
+                    value="<?= set_value('username'); ?>"
                     placeholder="Enter your username"
                     autofocus
                   />
+                  <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value="<?= set_value('email'); ?>"
+                    placeholder="Enter your email"
+                  />
+                  <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <label class="form-label" for="password">Password</label>
@@ -154,6 +164,7 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                  <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="mb-3">
@@ -165,7 +176,7 @@
                     </label>
                   </div>
                 </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
+                <button class="btn btn-primary d-grid w-100" type="submit">Sign up</button>
               </form>
 
               <p class="text-center">

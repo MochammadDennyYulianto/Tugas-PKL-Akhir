@@ -20,12 +20,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
-	}
-
-	public function testFunction()
-	{
-		$this->load->model('Asset_model', 'asset');
-		var_dump($this->asset->getAllAssets());
+		$this->load->view('welcome-message');
 	}
 }

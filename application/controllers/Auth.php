@@ -26,6 +26,11 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required');
 	}
 
+    public function login() 
+    {
+        $this->load->view('admin/index.php');
+    }
+
     public function registration()
     {
         # Type Alias

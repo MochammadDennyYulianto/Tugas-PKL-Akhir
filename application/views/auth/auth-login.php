@@ -68,11 +68,11 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Welcome to DenZal-! 👋</h4>
-          <p class="mb-4">Please sign-in to your account and start the adventure</p>
+          <h4 class="mb-2 text-center">Welcome to DenZal</h4>
+          <p class="mb-4">Enter your email and password</p>
           <?= $this->session->flashdata('message');?>
 
-          <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+          <form id="formAuthentication" class="mb-3" action="" method="POST">
             <div class="mb-3">
               <label for="email" class="form-label">Email or Username</label>
               <input
@@ -101,7 +101,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
+              <button class="btn btn-primary d-grid w-100" ><a href="<?= base_url('auth/login'); ?>">Log in</a></button>
             </div>
             <div class="d-flex justify-content-between">
               <p class="text-center">

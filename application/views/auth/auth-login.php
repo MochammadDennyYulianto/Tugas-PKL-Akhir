@@ -101,7 +101,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100" ><a href="<?= base_url('auth/login'); ?>">Log in</a></button>
+              <button class="btn btn-primary d-grid w-100" > <a href="<?= base_url('auth/login'); ?>" > Log in</a></button>
             </div>
             <div class="d-flex justify-content-between">
               <p class="text-center">

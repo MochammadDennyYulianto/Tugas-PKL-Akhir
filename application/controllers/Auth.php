@@ -5,6 +5,7 @@ class Auth extends CI_Controller
 {
     public function __construct()
     {
+        # Call the parent construct
         parent::__construct();
 
         # Load library
@@ -12,19 +13,58 @@ class Auth extends CI_Controller
 
         # Load model
         $this->load->model('Profile_model', 'profile');
+        
+        # Load helper
+        $this->load->helper('denzal');        
     }
 
 	public function index()
 	{
-        $data['title'] = 'DenZal | Login Page';
+        /**
+         * Login using email or username rules
+         * 
+         * On the Login form, 2 field were required to filled
+         * 1. Email-Username
+         * 2. Password
+         * 
+        **/
 
-        $this->load->view('templates/auth-header.php');
-		$this->load->view('auth/auth-login', $data);
-        $this->load->view('templates/auth-footer.php');
 
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-	}
+        $config = array(
+
+            # Email-username rules
+            array(
+                'field'  => 'email-username',
+                'label'  => 'Email or Username',
+                'rules'  => 'required|trim'
+            ),
+
+            # Password rules
+            array(
+                'field'  => 'password',
+                'label'  => 'Password',
+                'rules'  => 'required|trim|min_length[8]',
+                'errors' => array(
+                    'min_length' => 'Password too short!'
+                )
+            )
+        );
+        
+        $this->form_validation->set_rules($config);
+
+        if ($this->form_validation->run() == false)
+        {
+            $data['title'] = 'DenZal | Login Page';
+            
+            $this->load->view('templates/auth-header.php', $data);
+            $this->load->view('auth/auth-login.php');
+            $this->load->view('templates/auth-footer.php');
+        }
+        else
+        {
+            $this->_login();
+        }
+    }
 
     public function login() 
     {
@@ -33,10 +73,6 @@ class Auth extends CI_Controller
 
     public function registration()
     {
-        # Type Alias
-        $NOT_RUN = false;
-        $USER_ROLE = 4;
-
         /**
          * Registering new email rules
          * 
@@ -47,49 +83,79 @@ class Auth extends CI_Controller
          * 
         **/
 
-        # Username rules
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user_profile.name]',
-            ['is_uniqe' => 'This username is already taken']
+        $NOT_REGISTERED = $this->form_validation->run() == false;
+
+        $config = array(
+
+            # Username rules
+            array(
+                'field'  => 'username',
+                'label'  => 'Username',
+                'rules'  => 'required|trim|is_unique[user_profile.name]',
+                'errors' => array(
+                    'is_uniqe' => 'This username is already taken'
+                )
+            ),
+
+            # Email rules
+            array(
+                'field'  => 'email',
+                'label'  => 'Email',
+                'rules'  => 'required|trim|is_unique[user_profile.email]',
+                'errors' => array(
+                    'is_unique' => 'This email has already registered!'
+                )
+            ),
+
+            # Password rules
+            array(
+                'field'  => 'password',
+                'label'  => 'Password',
+                'rules'  => 'required|trim|min_length[8]',
+                'errors' => array(
+                    'min_length' => 'Password too short!'
+                )
+            )
         );
 
-        # Email rules
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user_profile.email]',
-            ['is_unique' => 'This email has already registered!']
-        );
+        $this->form_validation->set_rules($config);
 
-        # Password rules
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]',
-            ['min_length' => 'Password too short!']
-        );
-
-
-        if ($this->form_validation->run() == $NOT_RUN)
+        if ($NOT_REGISTERED)
         {
             $data['title'] = 'DenZal | Registrasion Page';
             
+            # Show page
             $this->load->view('templates/auth-header.php', $data);
             $this->load->view('auth/auth-register.php');
             $this->load->view('templates/auth-footer.php');
         }
         else
         {
-            # Post value
+            # Get post value
             $username = $this->input->post('username', true);
             $email = $this->input->post('email', true);
             $password = $this->input->post('password');
 
-            $data = [
-                'name' => htmlspecialchars($username),
-                'email' => htmlspecialchars($email),
-                'image' => 'default.img',
-                'password' => password_hash($password, PASSWORD_DEFAULT),
-                'followers' => 0,
-                'role_id' => $USER_ROLE,
-                'is_active' => 1,
+            $data = array(
+                'name'         => htmlspecialchars($username),
+                'email'        => htmlspecialchars($email),
+                'image'        => 'default.img',
+                'password'     => password_hash($password, PASSWORD_DEFAULT),
+                'followers'    => 0,
+                'role_id'      => CUSTOMER_ROLE_ID,
+                'is_active'    => ACTIVATED,
                 'date_created' => time()
-            ];
+            );
 
             $this->profile->addProfile($data);
         }
+    }
+
+    private function _login()
+    {
+        $email = $this->input->post('email-username');
+        $password = $this->input->post('password');
+
+        $this->profile->loginConfiguration($email, $password);
     }
 }

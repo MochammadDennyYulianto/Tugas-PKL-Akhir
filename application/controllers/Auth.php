@@ -66,7 +66,7 @@ class Auth extends CI_Controller
         }
     }
 
-    public function login() 
+    private function login() 
     {
         $this->load->view('admin/index.php');
     }
@@ -82,8 +82,6 @@ class Auth extends CI_Controller
          * 3. Password
          * 
         **/
-
-        $NOT_REGISTERED = $this->form_validation->run() == false;
 
         $config = array(
 
@@ -120,7 +118,7 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules($config);
 
-        if ($NOT_REGISTERED)
+        if ($this->form_validation->run() == false)
         {
             $data['title'] = 'DenZal | Registrasion Page';
             
@@ -157,5 +155,11 @@ class Auth extends CI_Controller
         $password = $this->input->post('password');
 
         $this->profile->loginConfiguration($email, $password);
+    }
+    
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        set_alert_message('You have been logged out!', 'alert-success');
     }
 }

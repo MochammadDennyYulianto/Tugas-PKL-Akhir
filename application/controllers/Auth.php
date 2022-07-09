@@ -83,7 +83,6 @@ class Auth extends CI_Controller
          * 
         **/
 
-        $NOT_REGISTERED = $this->form_validation->run() == false;
 
         $config = array(
 
@@ -120,7 +119,7 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules($config);
 
-        if ($NOT_REGISTERED)
+        if ($this->form_validation->run() == false)
         {
             $data['title'] = 'DenZal | Registrasion Page';
             

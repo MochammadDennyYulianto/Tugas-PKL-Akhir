@@ -66,11 +66,6 @@ class Auth extends CI_Controller
         }
     }
 
-    private function login() 
-    {
-        $this->load->view('admin/index.php');
-    }
-
     public function registration()
     {
         /**

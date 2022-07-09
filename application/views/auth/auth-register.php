@@ -8,7 +8,7 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="<?= base_url(); ?>" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -127,7 +127,7 @@
 
           <p class="text-center">
             <span>Already have an account?</span>
-            <a href="<?= base_url(); ?>">
+            <a href="<?= base_url('auth'); ?>">
               <span>Sign in instead</span>
             </a>
           </p>

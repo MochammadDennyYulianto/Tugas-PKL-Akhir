@@ -26,9 +26,6 @@ class Profile_model extends CI_Model
 
     public function getProfileByEmail(string $email)
     {
-        # Type alias
-        $EMPTY = false;
-
         # Get user profile by email or username
         $query_email = $this->db->get_where('user_profile', ['email' => $email])->row_array();
         $query_username = $this->db->get_where('user_profile', ['name' => $email])->row_array();
@@ -36,7 +33,7 @@ class Profile_model extends CI_Model
         # Check if the all query already have value or not
         if (($query_email) or ($query_username))
         {
-            if ($query_email == $EMPTY)
+            if ($query_email == EMAIL_EMPTY)
             {
                 /**
                  * If the queryEmail is empty
@@ -44,7 +41,7 @@ class Profile_model extends CI_Model
                  */
                 return $query_username;
             }
-            elseif ($query_username == $EMPTY)
+            elseif ($query_username == EMAIL_EMPTY)
             {
                 /**
                  * If the queryUsername is empty
@@ -74,7 +71,7 @@ class Profile_model extends CI_Model
                         'role_id' => $user['role_id']
                     );
 
-                    $this->session->set_userdata($data);
+                    $this->session->set_userdata('email', $user['email']);
 
                     if ($user['role_id'] == ADMIN_ROLE_ID)
                     {

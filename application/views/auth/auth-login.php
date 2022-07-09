@@ -8,7 +8,7 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="<?= base_url(); ?>" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -83,6 +83,7 @@
                 placeholder="Enter your email or username"
                 autofocus
               />
+              <?= form_error('email-username', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="mb-4 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -99,9 +100,10 @@
                 />
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
               </div>
+              <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100" ><a href="<?= base_url('auth/login'); ?>">Log in</a></button>
+              <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
             </div>
             <div class="d-flex justify-content-between">
               <p class="text-center">

@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #F3BD00;
+    --primary: #696cff;
     --secondary: #757575;
     --light: #F3F6F8;
     --dark: #0C2B4B;
@@ -78,11 +78,6 @@
 
 
 /*** Navbar ***/
-.navbar.sticky-top {
-    top: -100px;
-    transition: .5s;
-}
-
 .navbar .navbar-brand,
 .navbar a.btn {
     height: 80px
@@ -109,6 +104,10 @@
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
+}
+
+#custom-dropdown .dropdown-toggle::after {
+    content: none;
 }
 
 @media (max-width: 991.98px) {

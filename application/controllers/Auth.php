@@ -66,7 +66,7 @@ class Auth extends CI_Controller
         }
     }
 
-    public function login() 
+    private function login() 
     {
         $this->load->view('admin/index.php');
     }
@@ -83,7 +83,10 @@ class Auth extends CI_Controller
          * 
         **/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5010c5bc473fa1a07145b24ca2183969594d45e
         $config = array(
 
             # Username rules
@@ -156,5 +159,11 @@ class Auth extends CI_Controller
         $password = $this->input->post('password');
 
         $this->profile->loginConfiguration($email, $password);
+    }
+    
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        set_alert_message('You have been logged out!', 'alert-success');
     }
 }

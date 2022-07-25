@@ -68,7 +68,7 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Whealty starts here 🚀</h4>
+          <h4 class="mb-2">Embrace your creativity 🚀</h4>
           <p class="mb-4">Make your own digital store manageable</p>
 
           <form id="formAuthentication" class="mb-3" action="<?= base_url('auth/registration')?>" method="post">

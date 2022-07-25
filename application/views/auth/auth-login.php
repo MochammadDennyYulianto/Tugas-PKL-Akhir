@@ -81,6 +81,7 @@
                 id="email"
                 name="email-username"
                 placeholder="Enter your email or username"
+                value="<?= set_value('email'); ?>"
                 autofocus
               />
               <?= form_error('email-username', '<small class="text-danger pl-3">', '</small>'); ?>

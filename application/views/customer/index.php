@@ -71,8 +71,8 @@
 <div class="my-5">&#x2800;</div>
 
 <!-- Trend start -->
-<div class="container">
-  <div class="row my-5">
+<div class="container my-5">
+  <div class="row">
     <h2>Trend Templates</h2>
     <div class="col-md-10 col-lg-12 my-3 d-flex justify-content-between">
       <?php

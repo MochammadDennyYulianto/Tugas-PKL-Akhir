@@ -8,104 +8,91 @@ class Admin extends CI_Controller
         parent::__construct();
 
         $this->load->helper('denzal');
+        $this->load->model('Menu_model','menu');
         // isLoggedIn();
     }
 
     public function index()
     {
-        $data['title'] = 'Dashboard';
-        $data['listFeatures'] = $this->db->get('user_menu')->result_array();
-        $data['role'] = $this->db->get('user_role')->result_array();
-
-        $this->load->view('templates/admin-header.php',$data);
-        $this->load->view('templates/admin-sidebar.php',$data);
-        $this->load->view('templates/admin-topbar.php',$data);
-        $this->load->view('admin/index.php',$data);
-        $this->load->view('templates/admin-footer.php',$data);
+        $this->template('index.php', 'Dashboard');
     }
 
     public function featureAccess()
     {
-        $data['title'] = 'Feature Access';
-        $data['user'] = $this->db->get_where('user_profile', ['email' => 
-        $this->session->userdata('email')])->row_array();
-
-        $data['listFeatures'] = $this->db->get('user_menu')->result_array();
-        $data['role'] = $this->db->get('user_role')->result_array();
-        
-
-        $this->load->view('templates/admin-header.php',$data);
-        $this->load->view('templates/admin-sidebar.php',$data);
-        $this->load->view('templates/admin-topbar.php',$data);
-        $this->load->view('admin/feature-access.php',$data);
-        $this->load->view('templates/admin-footer.php',$data);
+        $data['allProfile'] = $this->profile->getAllProfile();
+        $this->template('feature-access.php', 'Feature Access', $data);
     }
 
     public function menuAccess() 
     {
-        $data['title'] = 'Menu Access';
-        $this->load->model('Menu_model','menu');
+        $slug = $this->uri->segment(3);
+
+        $data['role_access'] =  $this->db->get_where('user_role', ['id' => $slug])->row_array();
         $data['menuAccess'] = $this->menu->menuAccess();
 
-        $data['listFeatures'] = $this->db->get('user_menu')->result_array();
-        $data['role'] = $this->db->get('user_role')->result_array();
-
-        $this->load->view('templates/admin-header.php',$data);
-        $this->load->view('templates/admin-sidebar.php',$data);
-        $this->load->view('templates/admin-topbar.php',$data);
-        $this->load->view('admin/menu-access.php',$data);
-        $this->load->view('templates/admin-footer.php',$data);
+        $this->template('menu-access.php', 'Menu Access', $data);
     }
 
     public function editProfile() 
     {
-        $data['title'] = 'Edit Profile';
-
-        $data['listFeatures'] = $this->db->get('user_menu')->result_array();
-        $data['role'] = $this->db->get('user_role')->result_array();
-
-        $this->load->view('templates/admin-header.php',$data);
-        $this->load->view('templates/admin-sidebar.php',$data);
-        $this->load->view('templates/admin-topbar.php',$data);
-        $this->load->view('admin/edit-profile.php',$data);
-        $this->load->view('templates/admin-footer.php',$data);
+        $this->template('edit-profile.php', 'Edit Profile');
     }
 
     public function listcategory() 
     {
-        $data['title'] = 'List Category';
-        $data['user_profile'] = $this->db->get_where('user_profile', ['email' => 
-        $this->session->userdata('email')])->row_array();
-        $this->load->model('Menu_model','role');
+        $this->load->helper('denzal');
+
         $data['listFeatures'] = $this->db->get('user_menu')->result_array();
+        $data['listCategory'] = $this->menu->menuAccess();
 
-        $data['listCategory'] = $this->role->getSubMenu();
-        $data['role'] = $this->db->get('user_role')->result_array();
+        $config = array(
 
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('menu_id', 'Menu', 'required');
-        $this->form_validation->set_rules('url', 'URL', 'required');
-        $this->form_validation->set_rules('icon', 'Icon', 'required');
-        // echo $this->input->post('title');
-        // die;
+            # Title rules
+            array(
+                'field' => 'title',
+                'label' => 'Title',
+                'rules' => 'required'
+            ),
 
-        if($this->form_validation->run() == false){
-            $this->load->view('templates/admin-header.php', $data);
-            $this->load->view('templates/admin-sidebar.php', $data);
-            $this->load->view('templates/admin-topbar.php', $data);
-            $this->load->view('admin/list-category.php', $data);
-            $this->load->view('templates/admin-footer.php', $data);
-        } else{
+            # Menu rules
+            array(
+                'field' => 'menu_id',
+                'label' => 'Menu',
+                'rules' => 'required'
+            ),
+
+            # URL rules
+            array(
+                'field' => 'url',
+                'label' => 'URL',
+                'rules' => 'required'
+            ),
+
+            # Icon rules
+            array(
+                'field' => 'icon',
+                'label' => 'Icon',
+                'rules' => 'required'
+            )
+        );
+
+        $this->form_validation->set_rules($config);
+        
+        if($this->form_validation->run() == false)
+        {
+            $this->template('list-category.php', 'List Category', $data);
+        }
+        else
+        {
             $data = [
                 'title' => $this->input->post('title'),
                 'menu_id' => $this->input->post('menu_id'),
                 'url' => $this->input->post('url'),
-                'is_active' => $this->input->post('is_active'),
+                'icon' => $this->input->post('icon'),
+                'is_active' => $this->input->post('is_active')
             ];
             $this->db->insert('user_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New list category added!</div>');
-            redirect('admin/listcategory');
+            set_alert_message('New list category added!', 'alert-success', 'admin/listcategory');
         }
     }
 
@@ -115,11 +102,21 @@ class Admin extends CI_Controller
         set_alert_message('Data berhasil dihapus', 'alert-danger', 'admin/listcategory');
     }
 
-    // public function addCategory()
-    // {
+    private function template(String $url, String $title, Array $data = null)
+    {
+        $data['title'] = $title;
 
+        $data['listFeatures'] = $this->db->get('user_menu')->result_array();
+        $data['listRole'] = $this->db->get('user_role')->result_array();
 
-    //     set_alert_message('message', 'alert-success', 'admin/listcategory');
-    // }
+        $data['profile'] = $this->profile->getProfileByEmail($this->session->userdata('email'));
+        $data['user_role'] = $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row_array();
+
+        $this->load->view('templates/admin-header.php',$data);
+        $this->load->view('templates/admin-sidebar.php',$data);
+        $this->load->view('templates/admin-topbar.php',$data);
+        $this->load->view('admin/'.$url ,$data);
+        $this->load->view('templates/admin-footer.php',$data);
+    }
 
 }

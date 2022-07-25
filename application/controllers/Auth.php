@@ -78,10 +78,6 @@ class Auth extends CI_Controller
          * 
         **/
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d5010c5bc473fa1a07145b24ca2183969594d45e
         $config = array(
 
             # Username rules
@@ -136,7 +132,7 @@ class Auth extends CI_Controller
             $data = array(
                 'name'         => htmlspecialchars($username),
                 'email'        => htmlspecialchars($email),
-                'image'        => 'default.img',
+                'image'        => 'default.jpg',
                 'password'     => password_hash($password, PASSWORD_DEFAULT),
                 'followers'    => 0,
                 'role_id'      => CUSTOMER_ROLE_ID,

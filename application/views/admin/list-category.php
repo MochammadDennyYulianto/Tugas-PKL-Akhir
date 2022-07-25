@@ -75,13 +75,13 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">List Category</h4>
 
-              <?php if(validation_errors()) : ?>
+              <?php if (validation_errors()) : ?>  
                 <div class="alert alert-danger" role="alert">
                       <?= validation_errors(); ?>
                 </div>
               <?php endif; ?>
 
-              <?= $this->session->flashdata('message');?>
+              <?= $this->session->flashdata('message'); ?>
 
                     <div class="row">
                         <div class="col-lg">
@@ -100,7 +100,7 @@
                             </thead>
                             <tbody>
                               <?php $i = 1; ?>
-                              <?php foreach($listCategory as $lc) : ?>
+                              <?php foreach ($listCategory as $lc) : ?>
                                 <tr>
                                     <th scope="row"><?= $i ?></th>
                                     <td><?= $lc['title']; ?></td>
@@ -110,7 +110,7 @@
                                     <td><?= $lc['is_active']; ?></td>
                                     <td>
                                         <a href="" class="badge bg-success">edit</a>
-                                        <a href="<?= base_url('admin/deletecategory/').$lc['id']; ?>" class="badge bg-danger ">delete</a>
+                                        <a href="<?= base_url('admin/deletecategory/') . $lc['id']; ?>" class="badge bg-danger ">delete</a>
                                     </td>
                                 </tr>
                               <?php $i++; ?>
@@ -152,7 +152,7 @@
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('admin/listCategory'); ?>" method="post">
+        <form action="<?= base_url('admin/listcategory'); ?>" method="post">
       <div class="modal-body">
         <div class="form-group mb-4">
             <input type="text" class="form-control" id="title" name="title" placeholder="Submenu title">
@@ -160,8 +160,8 @@
         <div class="form-group mb-4">
             <select name="menu_id" id="menu_id" class="form-control">
                 <option value="">Select Menu</option>
-                <?php foreach($role as $r) : ?>
-                    <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
+                <?php foreach ($listRole as $role) : ?>
+                    <option value="<?= $role['id']; ?>"><?= $role['role']; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -189,4 +189,3 @@
     </div>
   </div>
 </div>
-

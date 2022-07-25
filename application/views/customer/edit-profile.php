@@ -25,7 +25,7 @@
           <!-- Photo Profile -->
           <div class="card-body">
             <div class="align-items-start align-items-sm-center gap-4">
-              <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded mx-auto my-5" height="100" width="100" id="uploadedAvatar" />
+              <img src="<?= base_url('assets/img/avatars/').$profile['image']; ?>" alt="user-avatar" class="d-block rounded mx-auto my-5" height="100" width="100" id="uploadedAvatar" />
               <div class="button-wrapper text-center">
                 <label for="upload" class="btn btn-primary mb-4" tabindex="0">
                   <span class="d-none d-sm-block">Upload new photo</span>
@@ -56,11 +56,11 @@
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label for="firstName" class="form-label">Full Name</label>
-                  <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+                  <input class="form-control" type="text" name="fullname" id="fullname" value="<?= $profile['name']; ?>" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <label for="email" class="form-label">E-mail</label>
-                  <input class="form-control" type="text" id="email" name="email" value="john.doe@example.com" placeholder="john.doe@example.com" />
+                  <input class="form-control" type="text" id="email" name="email" value="<?= $profile['email']; ?>" disabled />
                 </div>
               </div>
             </form>

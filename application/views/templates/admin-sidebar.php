@@ -69,7 +69,7 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-            <?php foreach($role as $role) : ?>
+            <?php foreach($listRole as $role) : ?>
               <li class="menu-header small ">
                 <span class="menu-header-text"><?= $role['role']; ?></span>
               </li>

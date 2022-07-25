@@ -24,6 +24,20 @@ class Profile_model extends CI_Model
         set_alert_message('Congratulation, You have been registered, Please Login', 'alert-success');
     }
 
+    public function getProfileRole(string $email) : string
+    {
+        $profile_role = $this->getProfileByEmail($email)['role_id'];
+
+        if ($profile_role == ADMIN_ROLE_ID)
+        { return 'Admin'; }
+        elseif ($profile_role == CREATOR_ROLE_ID)
+        { return 'Creator'; }
+        elseif ($profile_role == SUBSCRIBER_ROLE_ID)
+        { return 'Subscriber'; }
+        elseif ($profile_role == CUSTOMER_ROLE_ID)
+        { return 'Customer'; }
+    }
+
     public function getProfileByEmail(string $email)
     {
         # Get user profile by email or username
@@ -53,6 +67,12 @@ class Profile_model extends CI_Model
         # If it's not, then simply
         return null;
     }
+
+    public function getAllProfile()
+    {
+        $query = $this->db->get('user_profile')->result_array();
+        return $query;
+    }
     
     public function loginConfiguration(string $email, string $password)
     {
@@ -71,7 +91,7 @@ class Profile_model extends CI_Model
                         'role_id' => $user['role_id']
                     );
 
-                    $this->session->set_userdata('email', $user['email']);
+                    $this->session->set_userdata($data);
 
                     if ($user['role_id'] == ADMIN_ROLE_ID)
                     {

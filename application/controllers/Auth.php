@@ -78,6 +78,10 @@ class Auth extends CI_Controller
          * 
         **/
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d5010c5bc473fa1a07145b24ca2183969594d45e
         $config = array(
 
             # Username rules

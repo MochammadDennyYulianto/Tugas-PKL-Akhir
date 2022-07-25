@@ -72,7 +72,7 @@
           <p class="mb-4">Enter your email and password</p>
           <?= $this->session->flashdata('message');?>
 
-          <form id="formAuthentication" class="mb-3" action="<?= base_url('auth/'); ?>" method="POST">
+          <form id="formAuthentication" class="mb-3" action="<?= base_url('auth'); ?>" method="POST">
             <div class="mb-3">
               <label for="email" class="form-label">Email or Username</label>
               <input
